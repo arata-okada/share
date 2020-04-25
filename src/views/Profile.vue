@@ -50,26 +50,26 @@ export default {
       active: true,
       name: "太郎",
       profile: "私は太郎です",
-      hoge: "",
+      hoge: ""
     };
   },
   methods: {
     edit() {
       if (!this.active) {
         axios
-          .put("https://evening-journey-63012.herokuapp.com//user", {
+          .put("https://blooming-citadel-39489.herokuapp.com/user", {
             email: this.$store.state.user.email,
-            profile: this.profile,
+            profile: this.profile
           })
-          .then((response) => {
+          .then(response => {
             this.$store.dispatch("changeUserData", {
-              profile: this.profile,
+              profile: this.profile
             });
             console.log(response);
           });
       }
       this.active = !this.active;
-    },
+    }
   },
   created() {
     if (screen.width >= 480) {
@@ -82,8 +82,8 @@ export default {
     SideNavi,
     Header,
     Footer,
-    Message,
-  },
+    Message
+  }
 };
 </script>
 

@@ -2,18 +2,8 @@
   <div class="card">
     <p>{{ value }}</p>
     <div class="form">
-      <input
-        placeholder="ユーザーネーム"
-        type="text"
-        v-model="name"
-        v-if="value === '新規登録'"
-      />
-      <input
-        placeholder="プロフィール"
-        type="text"
-        v-model="profile"
-        v-if="value === '新規登録'"
-      />
+      <input placeholder="ユーザーネーム" type="text" v-model="name" v-if="value === '新規登録'" />
+      <input placeholder="プロフィール" type="text" v-model="profile" v-if="value === '新規登録'" />
       <input type="email" v-model="email" placeholder="メールアドレス" />
       <input type="password" v-model="password" placeholder="パスワード" />
       <button @click="auth">{{ value }}</button>
@@ -30,34 +20,34 @@ export default {
       name: "",
       profile: "",
       email: "",
-      password: "",
+      password: ""
     };
   },
   methods: {
     auth() {
       if (this.value == "新規登録") {
         axios
-          .post("https://evening-journey-63012.herokuapp.com/register", {
+          .post("https://blooming-citadel-39489.herokuapp.com/register", {
             name: this.name,
             profile: this.profile,
             email: this.email,
-            password: this.password,
+            password: this.password
           })
-          .then((response) => {
+          .then(response => {
             console.log(response);
             this.$router.replace("/");
           })
-          .catch((error) => {
+          .catch(error => {
             alert(error);
           });
       } else {
         this.$store.dispatch("login", {
           email: this.email,
-          password: this.password,
+          password: this.password
         });
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

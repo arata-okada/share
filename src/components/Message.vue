@@ -6,13 +6,7 @@
           <p class="name">{{ value.name }}</p>
           <img class="icon" src="../assets/heart.png" @click="fav(key)" alt />
           <p class="number">{{ value.like.length }}</p>
-          <img
-            class="icon"
-            src="../assets/cross.png"
-            @click="del(key)"
-            alt
-            v-if="path && profile"
-          />
+          <img class="icon" src="../assets/cross.png" @click="del(key)" alt v-if="path && profile" />
           <img
             class="icon detail"
             src="../assets/detail.png"
@@ -40,36 +34,36 @@ export default {
     return {
       shares: [],
       path: true,
-      profile: true,
+      profile: true
     };
   },
   methods: {
     fav(index) {
-      let result = this.shares[index].like.some((value) => {
+      let result = this.shares[index].like.some(value => {
         return value.user_id == this.$store.state.user.id;
       });
       if (result) {
-        this.shares[index].like.forEach((element) => {
+        this.shares[index].like.forEach(element => {
           if (element.user_id == this.$store.state.user.id) {
             axios
-              .delete("https://evening-journey-63012.herokuapp.com//like", {
+              .delete("https://blooming-citadel-39489.herokuapp.com/like", {
                 data: {
                   shares_id: this.shares[index].item.id,
-                  user_id: this.$store.state.user.id,
-                },
+                  user_id: this.$store.state.user.id
+                }
               })
-              .then((response) => {
+              .then(response => {
                 console.log(response);
               });
           }
         });
       } else {
         axios
-          .post("https://evening-journey-63012.herokuapp.com//like", {
+          .post("https://blooming-citadel-39489.herokuapp.com/like", {
             shares_id: this.shares[index].item.id,
-            user_id: this.$store.state.user.id,
+            user_id: this.$store.state.user.id
           })
-          .then((response) => {
+          .then(response => {
             console.log(response);
           });
       }
@@ -77,23 +71,26 @@ export default {
     del(index) {
       axios
         .delete(
-          "https://evening-journey-63012.herokuapp.com//shares/" +
+          "https://blooming-citadel-39489.herokuapp.com/shares/" +
             this.shares[index].item.id
         )
-        .then((response) => {
+        .then(response => {
           console.log(response);
         });
     },
     async getShares() {
       let data = [];
       let shares = await axios.get(
-        "https://evening-journey-63012.herokuapp.com//shares"
+        "https://blooming-citadel-39489.herokuapp.com/shares"
       );
       for (let i = 0; i < shares.data.length; i++) {
         console.log(shares);
         await axios
-          .get("HerokuのURL/shares/" + shares.data[i].id)
-          .then((response) => {
+          .get(
+            "https://blooming-citadel-39489.herokuapp.com/shares/" +
+              shares.data[i].id
+          )
+          .then(response => {
             if (this.$route.name == "profile") {
               if (response.data.item.user_id == this.$store.state.user.id) {
                 data.push(response.data);
@@ -108,7 +105,7 @@ export default {
           });
       }
       this.shares = data;
-    },
+    }
   },
   created() {
     if (this.$route.name === "home") {
@@ -118,7 +115,7 @@ export default {
       this.profile = false;
     }
     this.getShares();
-  },
+  }
 };
 </script>
 
