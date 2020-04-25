@@ -1,0 +1,3 @@
+[submodule "shareapi"]
+	path = shareapi
+	url = https://github.com/arata-okada/share.git
