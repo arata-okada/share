@@ -14,5 +14,6 @@ html {
   border: 0;
   color: #fff;
   font-family: "Noto Sans JP";
+  outline: none;
 }
 </style>

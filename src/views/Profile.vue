@@ -48,28 +48,28 @@ export default {
   data() {
     return {
       active: true,
-      name: "太郎",
-      profile: "私は太郎です",
-      hoge: ""
+      name: this.$store.state.user.name,
+      profile: this.$store.state.user.profile,
+      hoge: "",
     };
   },
   methods: {
     edit() {
       if (!this.active) {
         axios
-          .put("https://blooming-citadel-39489.herokuapp.com/user", {
+          .put("https://secret-earth-28647.herokuapp.com/user", {
             email: this.$store.state.user.email,
-            profile: this.profile
+            profile: this.profile,
           })
-          .then(response => {
+          .then((response) => {
             this.$store.dispatch("changeUserData", {
-              profile: this.profile
+              profile: this.profile,
             });
             console.log(response);
           });
       }
       this.active = !this.active;
-    }
+    },
   },
   created() {
     if (screen.width >= 480) {
@@ -82,8 +82,8 @@ export default {
     SideNavi,
     Header,
     Footer,
-    Message
-  }
+    Message,
+  },
 };
 </script>
 

@@ -64,29 +64,29 @@ export default {
     return {
       hoge: "",
       content: "",
-      data: ""
+      data: "",
     };
   },
   methods: {
     send() {
       axios
-        .post("https://blooming-citadel-39489.herokuapp.com/comments", {
+        .post("https://secret-earth-28647.herokuapp.com/comments", {
           shares_id: this.id,
           user_id: this.$store.state.user.id,
-          content: this.content
+          content: this.content,
         })
-        .then(response => {
+        .then((response) => {
           console.log(response);
           this.content = "";
         });
     },
     comment() {
       axios
-        .get("https://blooming-citadel-39489.herokuapp.com/shares/" + this.id)
-        .then(response => {
+        .get("https://secret-earth-28647.herokuapp.com/shares/" + this.id)
+        .then((response) => {
           this.data = response.data.comments;
         });
-    }
+    },
   },
   created() {
     if (screen.width >= 480) {
@@ -100,8 +100,8 @@ export default {
     SideNavi,
     Header,
     Footer,
-    Message
-  }
+    Message,
+  },
 };
 </script>
 

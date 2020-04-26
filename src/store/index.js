@@ -28,14 +28,14 @@ export default new Vuex.Store({
   actions: {
     async login({ commit }, { email, password }) {
       let responseLogin = await axios.post(
-        "https://blooming-citadel-39489.herokuapp.com/login",
+        "https://secret-earth-28647.herokuapp.com/login",
         {
           email: email,
           password: password,
         }
       );
       let responseUser = await axios.get(
-        "https://blooming-citadel-39489.herokuapp.com/user",
+        "https://secret-earth-28647.herokuapp.com/user",
         {
           params: {
             email: email,
@@ -48,7 +48,7 @@ export default new Vuex.Store({
     },
     logout({ commit }) {
       axios
-        .post("https://blooming-citadel-39489.herokuapp.com/logout", {
+        .post("https://secret-earth-28647.herokuapp.com/logout", {
           auth: this.state.auth,
         })
         .then((response) => {
