@@ -1,18 +1,12 @@
 <template>
-  <div>
+  <div class="message-box">
     <div v-for="(value, key, index) in shares" :key="index">
       <div class="message">
         <div class="flex">
           <p class="name">{{ value.name }}</p>
           <img class="icon" src="../assets/heart.png" @click="fav(key)" alt />
           <p class="number">{{ value.like.length }}</p>
-          <img
-            class="icon"
-            src="../assets/cross.png"
-            @click="del(key)"
-            alt
-            v-if="path && profile"
-          />
+          <img class="icon" src="../assets/cross.png" @click="del(key)" alt v-if="path && profile" />
           <img
             class="icon detail"
             src="../assets/detail.png"
@@ -22,7 +16,6 @@
                 params: { id: value.item.id },
               })
             "
-            alt
             v-if="profile"
           />
         </div>
@@ -40,25 +33,25 @@ export default {
     return {
       shares: [],
       path: true,
-      profile: true,
+      profile: true
     };
   },
   methods: {
     fav(index) {
-      let result = this.shares[index].like.some((value) => {
+      let result = this.shares[index].like.some(value => {
         return value.user_id == this.$store.state.user.id;
       });
       if (result) {
-        this.shares[index].like.forEach((element) => {
+        this.shares[index].like.forEach(element => {
           if (element.user_id == this.$store.state.user.id) {
             axios
               .delete("https://secret-earth-28647.herokuapp.com/like", {
                 data: {
                   shares_id: this.shares[index].item.id,
-                  user_id: this.$store.state.user.id,
-                },
+                  user_id: this.$store.state.user.id
+                }
               })
-              .then((response) => {
+              .then(response => {
                 console.log(response);
               });
           }
@@ -67,9 +60,9 @@ export default {
         axios
           .post("https://secret-earth-28647.herokuapp.com/like", {
             shares_id: this.shares[index].item.id,
-            user_id: this.$store.state.user.id,
+            user_id: this.$store.state.user.id
           })
-          .then((response) => {
+          .then(response => {
             console.log(response);
           });
       }
@@ -80,7 +73,7 @@ export default {
           "https://secret-earth-28647.herokuapp.com/shares/" +
             this.shares[index].item.id
         )
-        .then((response) => {
+        .then(response => {
           console.log(response);
         });
     },
@@ -96,7 +89,7 @@ export default {
             "https://secret-earth-28647.herokuapp.com/shares/" +
               shares.data[i].id
           )
-          .then((response) => {
+          .then(response => {
             if (this.$route.name == "profile") {
               if (response.data.item.user_id == this.$store.state.user.id) {
                 data.push(response.data);
@@ -111,17 +104,17 @@ export default {
           });
       }
       this.shares = data;
-    },
+    }
   },
   created() {
-    if (this.$route.name === "home") {
+    if (this.$route.name === "Home") {
       this.path = false;
     }
     if (this.$route.name === "detail") {
       this.profile = false;
     }
     this.getShares();
-  },
+  }
 };
 </script>
 
@@ -154,6 +147,9 @@ export default {
   margin-right: 10px;
 }
 @media screen and (max-width: 480px) {
+  .message-box {
+    padding-bottom: 60px;
+  }
   .icon {
     width: 30px;
     height: 30px;

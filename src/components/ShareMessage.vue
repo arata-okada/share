@@ -47,7 +47,7 @@ export default {
   data() {
     return {
       share: "",
-      message: "シェアする",
+      message: "シェアする"
     };
   },
   methods: {
@@ -58,15 +58,15 @@ export default {
         axios
           .post("https://secret-earth-28647.herokuapp.com/shares", {
             user_id: this.$store.state.user.id,
-            share: this.share,
+            share: this.share
           })
-          .then((response) => {
+          .then(response => {
             console.log(response);
             alert("シェアしました");
             this.share = "";
           });
       }
-    },
-  },
+    }
+  }
 };
 </script>
